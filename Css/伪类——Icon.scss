@@ -1,0 +1,23 @@
+.iname{
+    border-left: 1px solid #795548;
+    padding-top: 8px;
+    font-weight: bolder;
+    margin-right: 5px;
+    color: #FFF;
+    &:before{
+        margin-left: 5px;
+    }
+}
+.iname:before{
+    margin-left: 5px;
+}
+
+//每个单词整个显示，换行
+.innerSpan{
+    width: 120px;
+    line-height: 20px;
+    display: inline-block;
+    white-space: normal;
+    word-break: break-all;
+    word-wrap: break-word;
+}
