@@ -1,0 +1,67 @@
+JS 中两大数据类型：
+· 基本类型：Undefined、Null、Bollean、Number、String
+· 引用类型: Object Array
+
+基本类型 : 基本类型就是值类型，存放在栈(stack)内存中的简单数据段，数据大小确定，内存大小可以分配
+引用类型： 存放在堆(heap)内存中的对象，变量实际保存的是一个指针，这个指针指向另一个位置
+
+let obj = {
+	name: 'jsj',
+	age: '12'
+};
+let obj2 = obj;
+let obj3 = obj.name;
+
+console.log(obj2.value); //12
+console.log(obj3); //jsj
+
+obj2.value = '22';
+obj3 = 'zx';
+
+console.log(obj2.value); //22
+console.log(obj2.name); //jsj
+
+浅拷贝：
+	对于字符串类型，浅拷贝是对值的复制。对于对象来说，浅拷贝是对对象地址的复制, 也就是拷贝的结果是两个对象指向同一个地址
+深拷贝：
+	深拷贝开辟一个新的栈，两个对象对应两个不同的地址，修改一个对象的属性，不会改变另一个对象的属性
+
+实现深拷贝：
+· JSON.parse(JSON.stringify(Object))
+	缺点：无法正确处理函数
+		let obj = {
+			name: 'jsj',
+			age: '22',
+			fn: function(){}
+		}
+		console.log(JSON.parse(JSON.stringify(obj)))// obj.fn丢失
+· 递归 
+	深copy很多时候会想到extend方法,deep为true确实能深copy。整体思路就是递归对象，判断类型，处理类型
+	for( ; i < length; i++) {
+		if ( (options = arguments[i]) != null) {
+			for (name in options) {
+				copy = options[ name ];
+				if (target === copy) {
+					continue;
+				}
+				if (deep && copy && (jQuery.isPlainObiect(copy) || (copyIsArray = Array.isArray(src)))) {
+					src = target[name];
+					if (copyIsArray && !Array.isArray(src)) {
+						clone = [];
+					} else if (!copyIsArray && !jQuery.isPlainObject(src)) {
+						clone = [];
+					} else {
+						clone = src;
+					}
+					copyIsArray = false;
+					target[name] = jQuery.extend(deep, clone, copy,);
+				} else if (copy !== cundefined) {
+					target[ name ] = copy;
+				}
+			}
+		}
+	}
+
+总结
+· 浅拷贝是复制，两个对象指向同一个地址
+· 深拷贝是展开栈，两个对象指向不同的地址
