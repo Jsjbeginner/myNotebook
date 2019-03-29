@@ -10,6 +10,8 @@ let reg =/^([\d])\1{2}([a-z])\2{2}$/i
 //同上,但是能匹配数字+字母或字母+数字 如:222www 或 www222
 let reg =/^([\d])\1{2}([a-z])\2{2}|([a-z])\3{2}([\d])\4{2}$/i
 
+let a = 'CUniq GO指定亞洲多地數據組合1日a2'
+a.replace(/[^0-9]/ig,""); //12 -提取字符串中数字
 
 	if(!this.checkRule(value,2)){
         return callback(new Error(this.$t("editAddress.addressLinePromptuk")));
