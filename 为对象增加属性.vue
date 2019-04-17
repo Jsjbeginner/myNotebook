@@ -25,10 +25,16 @@
 					b: '这是添加属性',
 				},
 				objC: {},
+				listNotebook: [{title: 'one',content:'one'},{title: 'two',content:'two'},{title: 'three',content:'three'}],
+				listImg: [{imgUrl: '../../img/img_one'},{imgUrl: '../../img/img_two'}]
 			}
 		},
 		methods:{
 			goAdd(){
+				this.listNotebook.map((item,index)=>{
+				 Object.assign(item,this.listImg[(index%2)])
+				})
+//				listNotebook: [{title: 'one',content:'one',imgUrl: '../../img/img_one'},{title: 'two',content:'two',imgUrl: '../../img/img_two'},{title: 'three',content:'three',imgUrl: '../../img/img_one'}],
 				Object.assign(this.objC,this.objA,this.objB)
 			},
 			//遍历数组
