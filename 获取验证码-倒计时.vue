@@ -1,7 +1,7 @@
 <template>
 		<el-input v-model="formData.messageCaptcha" :placeholder="$t('realnameRegistration.inquireVerCode')" @blur="inquireCaptcha">
             <el-button class="codeBtn" slot="append" @click="sendCode" v-if="!sendCodeDisabled">{{$t('login.sendCode')}}</el-button>
-            <el-button class="codeBtn codeBtngray" slot="append" v-if="sendCodeDisabled" disabled>{{time + $t('login.codeSecond')}}</el-button>
+            <el-button class="codeBtn codeBtngray" slot="append" v-if="sendCodeDisabled" disabled>{{timer + $t('login.codeSecond')}}</el-button>
         </el-input>
 </template>
 
@@ -10,6 +10,7 @@
 	export default {
 		data(){
 			return {
+				timer: '',//倒计时时间
 				sendCodeDisabled:false,//发送验证码按钮显示 
 			}
 		},
@@ -25,11 +26,20 @@
                     }else{
                         //发送手机号码验证用户是否有效 无效 返回信息 有效返回验证码、orgId
                         self.sendCodeDisabled = true;
+                        if(window.name == ''){
+                            self.timer = 60;
+                        }else{
+                            self.timer = parseInt(window.name)
+                        }
                         let interval = window.setInterval(function(){
-                            if ((self.second--) <= 0) {
-                                self.second = 60;
+                            // debugger
+                            if(self.timer > 0){
+                                --self.timer
+                                window.name = self.timer
+                            }else{
                                 self.sendCodeDisabled = false;
-                                window.clearInterval(interval);
+                                window.name = ''
+                                window.clearInterval(interval)
                             }
                         },1000);
                         $v.get(AJAX_USER + '/sendMessage' ,{phone:self.formData.phoneNumber},(d) => {
@@ -40,7 +50,24 @@
 			},
 		},
 		mounted(){
-			
+			//定时
+            if(window.name == ''){
+                this.timer = 60
+            }else{
+                this.sendCodeDisabled = true;
+                this.timer = parseInt(window.name)
+                let interval = window.setInterval(function(){
+                    // debugger
+                    if(self.timer > 0){
+                        --self.timer
+                        window.name = self.timer
+                    }else{
+                        self.sendCodeDisabled = false;
+                        window.name = ''
+                        window.clearInterval(interval)
+                    }
+                },1000);
+            }
 		}
 	}
 	
