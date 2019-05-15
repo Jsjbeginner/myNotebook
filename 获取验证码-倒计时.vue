@@ -48,6 +48,32 @@
                     }
                 })
 			},
+//			活动是否开始
+			residueTime() {
+				let startTime = '1533635052689';//2018-09-11 10:33:20
+		    	let endTime = '1536633240000';//2018-09-11 10:34:00
+		    	let newTimeStr = new Date().getTime();//获取当前时间撮
+		    	if (newTimeStr < startTime){
+		    		this.isStart = false;//未开始
+		    	} else {
+		    		this.isStart = true;//已开始
+		    		//当前剩余时间
+		    		let times = endTime - newTimeStr; //计算剩余毫秒数
+		    		//计算出相差天数
+		    		this.days = Math.floor(times/(24*3600*1000)); 
+		    		//计算出小时数
+					var leave1 = times%(24*3600*1000);    //计算天数后剩余的毫秒数
+					this.hours = Math.floor(leave1/(3600*1000));
+					//计算相差分钟数
+					var leave2 = leave1%(3600*1000);        //计算小时数后剩余的毫秒数
+					var minutes = Math.floor(leave2/(60*1000));
+					//计算相差秒数
+					var leave3 = leave2%(60*1000);      //计算分钟数后剩余的毫秒数
+					var seconds = Math.round(leave3/1000);
+					hours = days * 24 + hours;
+					alert(" 相差 "+hours+"小时 "+minutes+" 分钟"+seconds+" 秒");
+		    	}
+			}
 		},
 		mounted(){
 			//定时
@@ -75,30 +101,5 @@
 </script>
 
 <style>
+	
 </style>
-
-
-
-		this.goodsDetail.startTime = '1533635052689';//2018-09-11 10:33:20
-    	this.goodsDetail.endTime = '1536633240000';//2018-09-11 10:34:00
-    	let newTimeStr = new Date().getTime();//获取当前时间撮
-    	if (newTimeStr < this.goodsDetail.startTime){
-    		this.isStart = false;//未开始
-    	} else {
-    		this.isStart = true;//已开始
-    		//当前剩余时间
-    		let times = this.goodsDetail.endTime - newTimeStr; //计算剩余毫秒数
-    		//计算出相差天数
-    		this.days = Math.floor(times/(24*3600*1000)); 
-    		//计算出小时数
-			var leave1 = times%(24*3600*1000);    //计算天数后剩余的毫秒数
-			this.hours = Math.floor(leave1/(3600*1000));
-			//计算相差分钟数
-			var leave2 = leave1%(3600*1000);        //计算小时数后剩余的毫秒数
-			var minutes = Math.floor(leave2/(60*1000));
-			//计算相差秒数
-			var leave3 = leave2%(60*1000);      //计算分钟数后剩余的毫秒数
-			var seconds = Math.round(leave3/1000);
-			hours = days * 24 + hours;
-			alert(" 相差 "+hours+"小时 "+minutes+" 分钟"+seconds+" 秒");
-    	}
